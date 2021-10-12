@@ -24,11 +24,11 @@ const player: MusicPlayer = {
 const author = "Knife Party";
 
 const { track, volume, second, details } = player;
+const { author: detailedAuthor, releaseYear } = details;
 
 console.log("Current volume: ", volume);
 console.log("Current second: ", second);
 console.log("Current track: ", track);
 
-const { author: detailedAuthor, releaseYear } = details;
 console.log("Track author: ", detailedAuthor);
 console.log("Track realease year: ", releaseYear);
