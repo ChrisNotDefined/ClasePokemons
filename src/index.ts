@@ -1,34 +1,33 @@
-// Destructuring
-interface Details {
-  author: string;
-  releaseYear: number;
+// Interface => DumbClass
+interface Product {
+  description: string;
+  price: number;
 }
 
-interface MusicPlayer {
-  volume: number;
-  second: number;
-  track: string;
-  details: Details;
-}
-
-const player: MusicPlayer = {
-  volume: 50,
-  second: 36,
-  track: "Driver",
-  details: {
-    author: "Pendulum",
-    releaseYear: 2020,
-  },
+const telephone: Product = {
+  description: "Xiomi Mi 11",
+  price: 1000,
 };
 
-const author = "Knife Party";
+const tablet: Product = {
+  description: "Galaxy Tab 10",
+  price: 500,
+};
 
-const { track, volume, second, details } = player;
-const { author: detailedAuthor, releaseYear } = details;
+const articles = [telephone, tablet];
+console.table(articles);
 
-console.log("Current volume: ", volume);
-console.log("Current second: ", second);
-console.log("Current track: ", track);
+function computeVAT(products: Product[]): [number, number] {
+  const VAT = 0.16;
+  let total = 0;
+  products.forEach(({ price }) => {
+    total += price;
+  });
 
-console.log("Track author: ", detailedAuthor);
-console.log("Track realease year: ", releaseYear);
+  return [total * VAT, VAT];
+}
+
+const [totalimport, tax] = computeVAT(articles);
+
+console.log("Import: ", totalimport);
+console.log("Tax: ", tax);
