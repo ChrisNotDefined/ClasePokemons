@@ -1,33 +1,60 @@
-// Interface => DumbClass
-interface Product {
-  description: string;
-  price: number;
+// Classes
+class PokemonClass {
+  // Static attributes are properties from the class, instead of the instance.
+  // static startingPosition: [0, 0];
+
+  // You can initialize some attribues like this, instead of declaring them on the class body
+  constructor(
+    // All attribues are public by default
+    public name: string,
+    public power: string,
+    // Attack points
+    public ap: number,
+    public dp: number
+  ) {}
+
+  greet() {
+    console.log("Hi, I am", this.name);
+  }
 }
 
-const telephone: Product = {
-  description: "Xiomi Mi 11",
-  price: 1000,
-};
+const pikachu = new PokemonClass("Pikachu", "Lightning", 40, 200);
 
-const tablet: Product = {
-  description: "Galaxy Tab 10",
-  price: 500,
-};
+console.log("Power: ", pikachu.power);
+pikachu.greet();
 
-const articles = [telephone, tablet];
-console.table(articles);
+const pokemons = [
+  new PokemonClass("Pikachu", "Lightning", 40, 200),
+  new PokemonClass("Fizeltoe", "Hypnosis", 30, 400),
+  new PokemonClass("Goku", "Fire", 100, 400),
+  new PokemonClass("ZabooMafoo", "Nature", 80, 400),
+];
 
-function computeVAT(products: Product[]): [number, number] {
-  const VAT = 0.16;
-  let total = 0;
-  products.forEach(({ price }) => {
-    total += price;
+function fight(pokemons: PokemonClass[]): [string, number] {
+  let winner: PokemonClass;
+  let participants = pokemons.length;
+  // Defendant
+  pokemons.forEach((defedant) => {
+    let damage = 0;
+    for (let i = 0; i < participants; i++) {
+      if (pokemons[i].name !== defedant.name) {
+        damage += pokemons[i].ap;
+      }
+    }
+    defedant.dp -= damage;
   });
 
-  return [total * VAT, VAT];
+  pokemons.forEach((pokemon) => {
+    if (winner == null) {
+      winner = pokemon;
+    } else {
+      if (winner.dp < pokemon.dp) {
+        winner = pokemon;
+      }
+    }
+  });
+
+  return [winner.name, winner.dp];
 }
 
-const [totalimport, tax] = computeVAT(articles);
-
-console.log("Import: ", totalimport);
-console.log("Tax: ", tax);
+console.log(fight(pokemons));
