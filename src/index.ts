@@ -1,8 +1,34 @@
+// Destructuring
+interface Details {
+  author: string;
+  releaseYear: number;
+}
 
+interface MusicPlayer {
+  volume: number;
+  second: number;
+  track: string;
+  details: Details;
+}
 
-console.log('Hola Mundo!');
+const player: MusicPlayer = {
+  volume: 50,
+  second: 36,
+  track: "Driver",
+  details: {
+    author: "Pendulum",
+    releaseYear: 2020,
+  },
+};
 
-/*
-    ===== Código de TypeScript =====
-*/
+const author = "Knife Party";
 
+const { track, volume, second, details } = player;
+
+console.log("Current volume: ", volume);
+console.log("Current second: ", second);
+console.log("Current track: ", track);
+
+const { author: detailedAuthor, releaseYear } = details;
+console.log("Track author: ", detailedAuthor);
+console.log("Track realease year: ", releaseYear);
